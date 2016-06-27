@@ -1,9 +1,63 @@
+package phonenumber;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.security.InvalidParameterException;
+
 public class PhoneNumberTest {
 
+	@Test
+	public void test_EmptyString_ReturnsInvalidNumber() {
+		final String expectedNumber = "0000000000";
+		final String actualNumber = new PhoneNumber("").getNumber();
+		
+		assertEquals(
+	            expectedNumber, actualNumber
+	        );
+	}
+	
+	@Test
+	public void test_NullString_ThrowsException() {
+		try {
+			PhoneNumber number = new PhoneNumber( null );
+			fail("Supposed to catch NullPointerException");
+		} catch ( NullPointerException npe ) {
+			
+		} catch ( Exception e ) {
+			fail("Expected to catch NullPointerException");
+		}
+	}
+	
+	@Test
+	public void test_LongGarbageString_ReturnsInvalidNumber() {
+		final String expectedNumber = "0000000000";
+		final String actualNumber = new PhoneNumber("aklsdjf;aklsjflak;jsfkl;ajs;kjagha;7*&^&*^dfhasudfhaksjd6786789a").getNumber();
+		
+		assertEquals(
+	            expectedNumber, actualNumber
+	        );
+	}
+	
+	@Test
+	public void test_ShortString_ReturnsInvalidNumber() {
+		final String expectedNumber = "0000000000";
+		final String actualNumber = new PhoneNumber("12345").getNumber();
+		
+		assertEquals(
+	            expectedNumber, actualNumber
+	        );
+	}
+	
+	@Test
+	public void test_10CharLongGarbageString_ReturnsInvalidNumber() {
+		final String expectedNumber = "0000000000";
+		final String actualNumber = new PhoneNumber("aaaaaaaaaa").getNumber();
+		assertEquals(
+	            expectedNumber, actualNumber
+	        );
+	}
+	
     @Test
     public void cleansNumber() {
         final String expectedNumber = "1234567890";
