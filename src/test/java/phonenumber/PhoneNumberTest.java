@@ -108,8 +108,10 @@ public class PhoneNumberTest {
         );
     }
 
+    // getAreaCode() tests.
+    
     @Test
-    public void areaCode() {
+    public void test_getAreaCode_ValidInput10Chars_ExpectedResponse() {
         final String expectedAreaCode = "123";
         final String actualAreaCode = new PhoneNumber("1234567890").getAreaCode();
 
@@ -117,7 +119,87 @@ public class PhoneNumberTest {
             expectedAreaCode, actualAreaCode
         );
     }
+    
+    @Test
+    public void test_getAreaCode_ValidInput11Chars_ExpectedResponse() {
+        final String expectedAreaCode = "123";
+        final String actualAreaCode = new PhoneNumber("11234567890").getAreaCode();
 
+        assertEquals(
+            expectedAreaCode, actualAreaCode
+        );
+    }
+
+    @Test
+    public void test_getAreaCode_InvalidInput_ExpectedResponse() {
+        final String expectedAreaCode = "000";
+        final String actualAreaCode = new PhoneNumber("aaaaaaaaaa").getAreaCode();
+
+        assertEquals(
+            expectedAreaCode, actualAreaCode
+        );
+    }
+    
+    @Test
+    public void test_getExchangeCode_ValidInput10Chars_ExpectedResponse() {
+    	final String expectedExchangeCode = "456";
+        final String actualExchangeCode = new PhoneNumber("1234567890").getExchangeCode();
+
+        assertEquals(
+        		expectedExchangeCode, actualExchangeCode
+        );
+    }
+    
+    @Test
+    public void test_getExchangeCode_ValidInput11Chars_ExpectedResponse() {
+    	final String expectedExchangeCode = "456";
+        final String actualExchangeCode = new PhoneNumber("11234567890").getExchangeCode();
+
+        assertEquals(
+        		expectedExchangeCode, actualExchangeCode
+        );
+    }
+    
+    @Test
+    public void test_getExchangeCode_InvalidInput_ExpectedResponse() {
+        final String expectedExchangeCode = "000";
+        final String actualExchangeCode = new PhoneNumber("aaaaaaaaaa").getExchangeCode();
+
+        assertEquals(
+        		expectedExchangeCode, actualExchangeCode
+        );
+    }
+    
+    @Test
+    public void test_getNumberCode_ValidInput10Chars_ExpectedResponse() {
+    	final String expectedNumberCode = "7890";
+        final String actualNumberCode = new PhoneNumber("1234567890").getNumberCode();
+
+        assertEquals(
+        		expectedNumberCode, actualNumberCode
+        );
+    }
+    
+    @Test
+    public void test_getNumberCode_ValidInput11Chars_ExpectedResponse() {
+    	final String expectedNumberCode = "7890";
+        final String actualNumberCode = new PhoneNumber("11234567890").getNumberCode();
+
+        assertEquals(
+        		expectedNumberCode, actualNumberCode
+        );
+    }
+    
+    @Test
+    public void test_getNumberCode_InvalidInput_ExpectedResponse() {
+        final String expectedNumberCode = "0000";
+        final String actualNumberCode = new PhoneNumber("aaaaaaaaaa").getNumberCode();
+
+        assertEquals(
+        		expectedNumberCode, actualNumberCode
+        );
+    }
+    
     @Test
     public void prettyPrint() {
         final String expectedPrettyNumber = "(123) 456-7890";

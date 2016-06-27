@@ -19,7 +19,17 @@ public class PhoneNumber
 	}
 	
 	public String getAreaCode() {
+		if ( this.invalid ) {
+			return "000";
+		}
 		return this.areaCode;
+	}
+	
+	public String getExchangeCode() {
+		if ( this.invalid ) {
+			return "000";
+		}
+		return this.exchangeCode;
 	}
 	
 	public String getNumber() {
@@ -28,14 +38,19 @@ public class PhoneNumber
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		if ( this.countryCode.equals( "1" ) ) {
-			sb.append( countryCode );
-		}
+
 		sb.append( areaCode );
 		sb.append( exchangeCode );
 		sb.append( numberCode );
 		
 		return sb.toString( );
+	}
+	
+	public String getNumberCode() {
+		if ( this.invalid ) {
+			return "0000";
+		}
+		return this.numberCode;
 	}
 	
 	private void parse(String rawInput) {
@@ -54,21 +69,12 @@ public class PhoneNumber
 	}
 	
 	private String parsePhoneNumberPart( String rawInput, int startIndex, int length ) {
-		int loopStart = 0;
+		int loopStart = startIndex;
 		if ( rawInput.length() == 11 ) {
-			// Area code: chars 1-3.
-			loopStart = startIndex + 1;
-		} else if ( rawInput.length( ) == 10 ) {
-			// Area code: chars 0-2.
-		}	loopStart = startIndex;
-		
-		StringBuilder sb = new StringBuilder();
-		
-		for ( int i = 0 ; i < loopStart + 3 ; i++ ) {
-			sb.append( rawInput.charAt( i ) );
+			loopStart += 1;
 		}
 		
-		return sb.toString( );
+		return rawInput.substring( loopStart, loopStart + length );
 	}
 	
 	private void parseCountryCode( String rawInput ) {
